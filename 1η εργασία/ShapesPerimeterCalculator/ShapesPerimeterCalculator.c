@@ -1,0 +1,95 @@
+#include <stdio.h>
+#include <math.h> /*We should compile using -lm option in order to link this library*/
+#include <stdlib.h> /*Including stdlib in order to use exit() function*/
+
+#define PI 3.14
+
+/*Functions calculating perimeter for each type of shape*/
+double calcPerimeterSquare(double side)
+{
+	return 4*side;
+}
+
+double calcPerimeterRectangle(double length, double width)
+{
+	return 2*length + 2*width;
+}
+
+double calcPerimeterRightTriangle(double verticalSide1, double verticalSide2)
+{
+	double tmp = pow(verticalSide1, 2) + pow(verticalSide2, 2);
+	double hypotenuse = sqrt(tmp);
+
+	return verticalSide1 + verticalSide2 + hypotenuse;
+}
+
+double calcPerimeterCircle(double radius)
+{
+	return 2*PI*radius;
+}
+
+int main()
+{
+	/*With this endless loop the program is going to run until we type 0 after the initial menu*/
+	while(1){
+		/*Initial menu provided to user*/
+		printf("***********************************************************\n");
+		printf("Please select shape by typing the corresponding number:\n");
+		printf("***********************************************************\n");
+		printf("0. Exit program\n");
+		printf("1. Square\n");
+		printf("2. Rectangle\n");
+		printf("3. Right Triangle\n");
+		printf("4. Circle\n");
+		printf("***********************************************************\n");
+
+		int choice;
+		scanf("%d", &choice);
+
+		if(choice<0 || choice>4)
+		{
+			/*If user gives wrong input we ask him to give again. Because he can type wrong
+		  	input again we use this while loop to ask for input until he gives a right one. */
+			while(choice<0 || choice>4){
+				printf("Wrong input. Please type a number between 0 and 4.\n");
+				scanf("%lf", &choice);
+			}
+
+		}
+
+		if(choice == 0){
+		printf("You typed '0'. Program is terminating.\n");
+		exit(0);
+		}
+		else if(choice == 1){
+			printf("Square selected. Please give square's side:\n");
+			double side;
+			scanf("%lf", &side);
+			double perimeter = calcPerimeterSquare(side);
+			printf("Square's perimeter is %lf\n\n", perimeter);
+		}
+		else if(choice == 2){
+			printf("Rectangle selected. Please give rectangle's width and length:\n");
+			double width, length;
+			scanf("%lf %lf", &width, &length);
+			double perimeter = calcPerimeterRectangle(width, length);
+			printf("Rectangle's perimeter is %lf\n\n", perimeter);
+		}
+		else if(choice == 3){
+			printf("Right triangle selected. Please give the two vertical sides of the right triangle:\n");
+			double verticalSide1, verticalSide2;
+			scanf("%lf %lf", &verticalSide1, &verticalSide2);
+			double perimeter = calcPerimeterRightTriangle(verticalSide1, verticalSide2);
+			printf("Right triangle's perimeter is %lf\n\n", perimeter);
+		}
+		else if(choice == 4){
+			printf("Circle selected. Please give circle's radius:\n");
+			double radius;
+			scanf("%lf", &radius);
+			double perimeter = calcPerimeterCircle(radius);
+			printf("Circle's perimeter is %lf\n\n", perimeter);
+		}
+
+	}
+
+}
